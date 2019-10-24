@@ -1416,7 +1416,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 #contact .form #sendmessage {
   color: #007bff;
   border: 1px solid #007bff;
-  display: none;
+  display: block;
   text-align: center;
   padding: 15px;
   font-weight: 600;

@@ -10,6 +10,10 @@ class Contact extends Component{
             email : '', 
             subject : '',
             message : '',
+            mailing : {
+                sent : false,
+                message : '',
+            },
         }
     }
 
@@ -29,11 +33,23 @@ class Contact extends Component{
             subject : this.state.subject,
             message : this.state.message,
         }
-        SendMail(formDetails);
+        SendMail(formDetails)
+        .then(
+            response => {
+                this.setState(
+                    {
+                        mailing : {
+                            sent: true,
+                            message : response.data.message,
+                        },
+                    }
+                )
+            }
+        )
     }
     render()
     {
-        const { name, email, subject, message } = this.state;
+        const { name, email, subject, message, mailing } = this.state;
         return(
             <section id="contact">
                 <div className="container-fluid">
@@ -68,9 +84,9 @@ class Contact extends Component{
                         </div>
 
                         <div className="form">
-                            <div id="sendmessage">Your message has been sent. Thank you!</div>
+                            {mailing.sent && <div id="sendmessage">{mailing.message}</div>}
                             <div id="errormessage"></div>
-                            <form action="/email" method="post" className="contactForm" onSubmit={this.handleFormSubmit}>
+                            <form action="" method="post" className="contactForm" onSubmit={this.handleFormSubmit}>
                                 <div className="form-row">
                                 <div className="form-group col-lg-6">
                                     <input type="text" name="name" className="form-control" id="name" placeholder="Your Name"

@@ -17,17 +17,20 @@ class SendMailController extends Controller
             'message' => 'required',
         ]);
 
-
         $info = array(
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'subject' => $request->input('subject'),
-            'message' => $request->input('message'),
+            'name' => $request->name,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'message' => $request->message,
         );
         
+        $response = array(
+            'message' => 'Your message has been sent successfully. Thank you!',
+        );
+
         $mail = new Mail;
         Mail::to('evansmbuthia97@gmail.com')->send(new SendMail($info));
-        return 200;
+        return $response;
         
     }
 }

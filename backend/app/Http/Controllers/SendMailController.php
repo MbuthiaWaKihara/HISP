@@ -25,7 +25,7 @@ class SendMailController extends Controller
         );
         
         $response = array(
-            'message' => 'Your message has been sent successfully. Thank you!',
+            'message' => 'Your message has been sent. Thank you!',
         );
 
         $mail = new Mail;

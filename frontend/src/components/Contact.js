@@ -43,7 +43,22 @@ class Contact extends Component{
                             message : response.data.message,
                         },
                     }
-                )
+                );
+
+                setTimeout(
+                    () => {
+                        this.setState({
+                            name : '',
+                            email : '', 
+                            subject : '',
+                            message : '',
+                            mailing : {
+                                sent : false,
+                                message : '',
+                            },
+                        });
+                    }
+                    ,5000)
             }
         )
     }

@@ -27,17 +27,20 @@ class Contact extends Component{
     handleFormSubmit = (event) =>
     {
         event.preventDefault();
-        this.setState({
-            mailing : {
-                sent : true,
-                message : 'Sending ...',
-            }
-        });
         const formDetails = {
             name : this.state.name,
             email : this.state.email,
             subject : this.state.subject,
             message : this.state.message,
+        }
+
+        if(formDetails.name !== '' && formDetails.email !== '' && formDetails.subject !== '' && formDetails.message !== ''){
+            this.setState({
+                mailing : {
+                    sent : true,
+                    message : 'Sending ...',
+                }
+            });
         }
         SendMail(formDetails)
         .then(

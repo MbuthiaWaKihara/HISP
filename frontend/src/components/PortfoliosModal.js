@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-class ServicesModal extends Component{
+class PortfoliosModal extends Component{
    
     render()
     {
@@ -19,15 +19,21 @@ class ServicesModal extends Component{
             </Modal.Header>
             <Modal.Body>
             <form action="" method="GET" className="contactForm" onSubmit={this.props.handleSubmit}>
-                <div className="form-group">
-                  <input type="text" className="form-control"  placeholder={this.props.inputplaceholder}
-                    data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" value={this.props.inputValue} onChange={this.props.changeInputValue}/>
+                <div class="form-group">
+                  <input type="text" className="form-control"  placeholder={this.props.titleplaceholder}
+                    data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" value={this.props.titleValue} onChange={this.props.changeTitleValue}/>
                   <div className="validation"></div>
                 </div>
                 <div className="form-group">
-                <textarea className="form-control"  rows="5" data-rule="required"
-                    data-msg="Please write something for us" placeholder={this.props.textplaceholder} value={this.props.textValue} onChange={this.props.changeTextValue}></textarea>
-                <div className="validation"></div>
+                  <input type="text" className="form-control"  placeholder={this.props.linkplaceholder}
+                    data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" value={this.props.linkValue} onChange={this.props.changeLinkValue}/>
+                  <div className="validation"></div>
+                </div>
+                <div className="form-group">
+                    <select value={this.props.typeValue} onChange={this.props.changeTypeValue}>
+                        <option value="web">Website</option>
+                        <option value="app">Application</option>
+                    </select>
                 </div>
                 <div className="text-center"><button type="submit" title="change content" style={{backgroundColor : '#0a7cff' , color : '#ffffff', borderRadius : '5px' , border : 'none'}}>{this.props.buttonText}</button></div>
             </form>
@@ -40,4 +46,4 @@ class ServicesModal extends Component{
     }
 }
 
-export default ServicesModal;
+export default PortfoliosModal;

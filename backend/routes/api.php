@@ -28,3 +28,9 @@ Route::get('services', 'ServicesController@index');
 Route::post('services/delete','ServicesController@delete');
 Route::post('services/new','ServicesController@new');
 Route::post('services/edit','ServicesController@updateService');
+
+//Portfolio Section
+Route::get('portfolio', 'PortfoliosController@index');
+Route::post('portfolio/delete','PortfoliosController@delete');
+Route::post('portfolio/new','PortfoliosController@new');
+Route::post('portfolio/edit','PortfoliosController@update');

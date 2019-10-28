@@ -41,8 +41,8 @@ class Contact extends Component{
                     message : 'Sending ...',
                 }
             });
-        }
-        SendMail(formDetails)
+
+            SendMail(formDetails)
         .then(
             response => {
                 this.setState(
@@ -69,7 +69,8 @@ class Contact extends Component{
                     }
                     ,5000)
             }
-        )
+        );
+        }
     }
     render()
     {

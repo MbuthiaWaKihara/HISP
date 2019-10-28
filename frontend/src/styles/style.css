@@ -1416,7 +1416,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 #contact .form #sendmessage {
   color: #007bff;
   border: 1px solid #007bff;
-  display: block;
+  display: none;
   text-align: center;
   padding: 15px;
   font-weight: 600;
@@ -1656,7 +1656,6 @@ body.mobile-nav-active #mobile-nav-toggle {
   }
 }
 
-
 @media (max-width: 768px) {
   .back-to-top {
     bottom: 15px;
@@ -1681,31 +1680,4 @@ body.mobile-nav-active #mobile-nav-toggle {
   #mobile-nav-toggle {
     display: inline;
   }
-}
-
-/**this are additions for cms implementation**/
-.edit-about:hover {
-  border: .5px solid #1500fa;
-  border-radius: 5px;
-}
-
-.edit-button {
-  padding : 5px;
-}
-
-.btn-primary{
-  border: none;
-}
-.btn-primary:hover{
-  color: #1500fa;
-  background-color: #ffffff;
-}
-
-.add-service{
-  padding-left: 50%;
-  padding-right: 50%;
-}
-
-.fa-trash:hover,.fa-edit:hover{
-  color : #ff0000;
 }

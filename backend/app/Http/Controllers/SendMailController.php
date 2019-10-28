@@ -10,13 +10,6 @@ class SendMailController extends Controller
 {
     public function send(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email',
-            'subject' => 'required',
-            'message' => 'required',
-        ]);
-
         $info = array(
             'name' => $request->name,
             'email' => $request->email,

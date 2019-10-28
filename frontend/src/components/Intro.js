@@ -35,7 +35,7 @@ const Intro = () =>
         <section id="intro">
             <div className="intro-container">
                 <div id="itroCarousel" className="carousel  slide carousel-fade" data-ride="carousel">
-                    <ol className="carousel-indicators"></ol>
+                    {/* <ol className="carousel-indicators"></ol> */}
                         <div  className="carousel-inner" role="listbox">
                             <Carousel 
                             customClass="active"
@@ -70,7 +70,7 @@ const Intro = () =>
                             />
                         </div>
 
-                        <a className="carousel-control-prev" href="#introCarousel" role="button" data-slide="prev">
+                        {/* <a className="carousel-control-prev" href="#introCarousel" role="button" data-slide="prev">
                         <span className="carousel-control-prev-icon ion-chevron-left" aria-hidden="true"></span>
                         <span className="sr-only">Previous</span>
                         </a>
@@ -78,7 +78,7 @@ const Intro = () =>
                         <a className="carousel-control-next" href="#introCarousel" role="button" data-slide="next">
                         <span className="carousel-control-next-icon ion-chevron-right" aria-hidden="true"></span>
                         <span className="sr-only">Next</span>
-                        </a>
+                        </a> */}
                 </div>
             </div>
         </section>

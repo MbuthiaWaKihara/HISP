@@ -13,7 +13,18 @@ use Illuminate\Http\Request;
 |
 */
 
+//mailing
 Route::post('email','SendMailController@send');
-Route::get('test', function(){
-    return 1;
-});
+
+//About Section
+Route::get('about','AboutController@index');
+Route::post('about/main','AboutController@updateMainContent');
+Route::post('about/mission', 'AboutController@updateMission');
+Route::post('about/vision', 'AboutController@updateVision');
+Route::post('about/plans', 'AboutController@updatePlans');
+
+//Services Section
+Route::get('services', 'ServicesController@index');
+Route::post('services/delete','ServicesController@delete');
+Route::post('services/new','ServicesController@new');
+Route::post('services/edit','ServicesController@updateService');

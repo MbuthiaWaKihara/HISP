@@ -16,8 +16,7 @@ class SinglePortfolio extends Component{
                         <a href="index.html" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
                     </figure>
 
-                    <div style={{backgroundColor : '#ffffff', paddingLeft : '50%', paddingRight : '50%'}}><i className="fa fa-edit" onClick={()=>{activate(); editing(id)}}></i></div>
-                    <div style={{backgroundColor : '#ffffff', paddingLeft : '50%', paddingRight : '50%'}}><i className="fa fa-trash" onClick={()=>{deletePortfolio(id)}}></i></div>
+                    <div style={{backgroundColor : '#ffffff', paddingLeft : '40%'}}><i className="fa fa-edit" onClick={()=>{activate(); editing(id)}}></i><i className="fa fa-trash" style={{marginLeft : '30px'}} onClick={()=>{deletePortfolio(id)}}></i></div>
                     <div className="portfolio-info">
                         <h4><a href="index.html">{link}</a></h4>
                         <p>{title}</p>

@@ -7,13 +7,8 @@ import Portfolio from './Portfolio';
 import Clients from './Clients';
 import Contact from './Contact';
 import Footer from './Footer';
-// import $ from 'jquery';
 
 class App extends Component{
-    componentDidMount()
-    {
-    }
-
     render()
     {
         return(

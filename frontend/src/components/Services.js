@@ -175,11 +175,6 @@ class Services extends Component{
         )
 
     }
-
-    // componentDidUpdate = () =>
-    // {
-    //     console.log(this.state.newService);
-    // }
     render()
     {
         const{ services, addServiceShow, newServiceInput, newServiceText, editServiceShow } = this.state;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import AboutTemplate from './AboutTemplate';
 import axios from 'axios';
-import AboutModal from './AboutModal';
 
 class About extends Component{
 
@@ -19,11 +18,10 @@ class About extends Component{
                 newVision : '',
                 newPlans : '',
             },
-            mainHover : true,
-            aboutModalShow : false,
-            missionModalShow : false,
-            visionModalShow : false,
-            plansModalShow : false,
+            mainIsEditing : false,
+            missionIsEditing: false,
+            visionIsEditing: false,
+            plansIsEditing: false,
         };
     }
 
@@ -42,8 +40,6 @@ class About extends Component{
                     mission : response.data.mission,
                     plans : response.data.plans,
                     vision : response.data.vision,
-                    mainHover : true,
-                    aboutModalShow : false,
                     missionModalShow : false,
                     visionModalShow : false,
                     plansModalShow : false,
@@ -58,63 +54,75 @@ class About extends Component{
     }
 
     /**********ACTIVATORS******/
-    activateMainShow = () =>
+    activateMainEdit = () =>
     {
         this.setState({
-            aboutModalShow : true,
+            mainIsEditing : true,
+            newData : {
+                newMainContent : this.state.mainContent,
+            }
         })
     }
 
-    activateMissionShow = () =>
+    activateMissionEdit = () =>
     {
         this.setState({
-            missionModalShow : true,
+            missionIsEditing : true,
+            newData : {
+                newMission : this.state.mission,
+            }
         })
     }
 
-    activateVisionShow = () =>
+    activateVisionEdit = () =>
     {
         this.setState({
-            visionModalShow : true,
+            visionIsEditing : true,
+            newData : {
+                newVision : this.state.vision,
+            }
         })
     }
 
-    activatePlansShow = () =>
+    activatePlansEdit = () =>
     {
         this.setState({
-            plansModalShow : true,
+            plansIsEditing : true,
+            newData : {
+                newPlans : this.state.plans,
+            }
         })
     }
     /**********ACTIVATORS********/
     
     /***********DEACTIVATORS*******/
-    hideAboutModal = () =>
+    deactivateMainEdit = () =>
     {
         this.setState(
             {
-                aboutModalShow: false,
+                mainIsEditing: false,
             }
         )
     }
 
-    hideMissionModal = () =>
+    deactivateMissionEdit = () =>
     {
         this.setState({
-            missionModalShow : false,
+            missionIsEditing : false,
         })
     }
 
-    hideVisionModal = () =>
+    deactivateVisionEdit = () =>
     {
         this.setState({
-            visionModalShow : false,
+            plansIsEditing : false,
         })
     }
 
-    hidePlansModal = () =>
+    deactivatePlansEdit = () =>
     {
         this.setState({
-            plansModalShow : false,
+            plansIsEditing : false,
         })
     }
     /**********DEACTOVATPRS*********/
@@ -255,61 +263,54 @@ class About extends Component{
     }
 
     /*******************UPDATERS*************************/
-
-    handleAboutMainUpdate = (event) =>
+    handleMainUpdate = () =>
     {
-        event.preventDefault();
         this.updateMainContent(this.state.newData.newMainContent)
         .then(
-            () =>{
+            () =>
+            {   
                 this.getAllAbouts();
                 this.setState({
-                    aboutModalShow: false,
-                })
+                    mainIsEditing : false
+                });
             }
-        );
-        
+        )
     }
-
-    handleMissionUpdate = (event) =>
+    handleMissionUpdate = () =>
     {
-        event.preventDefault();
         this.updateMission(this.state.newData.newMission)
         .then(
             () =>{
                 this.getAllAbouts();
                 this.setState({
-                    missionModalShow: false,
+                    missionIsEditing: false,
                 })
             }
         );
         
     }
 
-     handleVisionUpdate = (event) =>
+     handleVisionUpdate = () =>
     {
-        event.preventDefault();
         this.updateVision(this.state.newData.newVision)
         .then(
             () =>{
                 this.getAllAbouts();
                 this.setState({
-                    visionModalShow: false,
+                    visionIsEditing: false,
                 })
             }
         );
-        
     }
 
-    handlePlansUpdate = (event) =>
+    handlePlansUpdate = () =>
     {
-        event.preventDefault();
         this.updatePlans(this.state.newData.newPlans)
         .then(
             () =>{
                 this.getAllAbouts();
                 this.setState({
-                    plansModalShow: false,
+                    plansIsEditing: false,
                 })
             }
         );
@@ -318,80 +319,63 @@ class About extends Component{
 
     render()
     { 
-        const { mainContent, mission, plans, vision, mainHover, newData, aboutModalShow, missionModalShow, visionModalShow, plansModalShow } = this.state;
+        const { mainIsEditing, mainContent, mission, plans, vision, newData, missionIsEditing, visionIsEditing, plansIsEditing } = this.state;
         return(
             <section id="about">
                 <div className="container">
                     <header className="section-header">
                         <h3>About Us</h3>
-                        <p className="edit-about" 
-                        // onMouseOver={()=>{this.setState({mainHover:true})}}
-                        // onMouseOut={()=>{this.setState({mainHover:false})}}
-                        >
-                        {mainHover && <>
-                            <button 
-                            className="btn btn-primary"
-                            onClick={this.activateMainShow}
-                            >Edit
-                            </button><br/></>
-                        }
-                        <AboutModal 
-                        show={aboutModalShow}
-                        onHide={this.hideAboutModal}
-                        formValue={newData.newMainContent}
-                        changeFormValue={this.setMainContent}
-                        handleSubmit={this.handleAboutMainUpdate}
-                        modaltitle="Edit About Main Content"
-                        placeholder="Main Content Here"/>
+                        {
+                            mainIsEditing ? 
+                            <>
+                            <textarea 
+                            style={{width : '100%', border : 'none', backgroundColor : 'rgba(242, 252, 252, .1)'}}
+                            rows="7"
+                            value={newData.newMainContent}
+                            onChange={this.setMainContent}>
+                            </textarea><br/><button className="btn btn-primary" onClick={this.handleMainUpdate}>Done</button><br/><br/></> :
+                        <p className="edit-about" onDoubleClick={this.activateMainEdit}>
                         {mainContent}
                         </p>
+                        }
                     </header>
                     <div className="row about-cols">
                         <AboutTemplate 
-                        activateShow={this.activateMissionShow}
                         title="Our Mission"
                         imgsrc="img/about-mission.jpg"
                         icon="ion-ios-speedometer-outline"
                         content={mission}
-                        show={missionModalShow}
-                        onHide={this.hideMissionModal}
-                        formValue={newData.newMission}
-                        changeFormValue={this.setMission}
-                        handleSubmit={this.handleMissionUpdate}
-                        modaltitle="Change Mission"
-                        placeholder="Mission Here"
+                        activator={this.activateMissionEdit}
+                        isEditing={missionIsEditing}
+                        editValue={newData.newMission}
+                        editChange={this.setMission}
+                        handler={this.handleMissionUpdate}
                         />
 
                         <AboutTemplate 
-                        activateShow={this.activateVisionShow}
                         title="Our Vision"
                         delay="0.1s"
                         imgsrc="img/about-vision.jpg"
                         icon="ion-ios-eye-outline"
                         content={vision}
-                        show={visionModalShow}
-                        onHide={this.hideVisionModal}
-                        formValue={newData.newVision}                              
-                        changeFormValue={this.setVision}
-                        handleSubmit={this.handleVisionUpdate}
-                        modaltitle="Change Vision"
-                        placeholder="Vision Here"
+                        activator={this.activateVisionEdit}
+                        isEditing={visionIsEditing}
+                        editValue={newData.newVision}
+                        editChange={this.setVision}
+                        handler={this.handleVisionUpdate}
                         />
 
                         <AboutTemplate 
-                        activateShow={this.activatePlansShow}
                         title="Our Plans"
                         delay="0.2s"
                         imgsrc="img/about-plan.jpg"                             
                         icon="ion-ios-list-outline"
                         content={plans}
-                        show={plansModalShow}
-                        onHide={this.hidePlansModal}
-                        formValue={newData.newPlans}
-                        changeFormValue={this.setPlans}
-                        handleSubmit={this.handlePlansUpdate}
-                        modaltitle="Change Plans"
-                        placeholder="Plans Here"
+                        activator={this.activatePlansEdit}
+                        isEditing={plansIsEditing}
+                        editValue={newData.newPlans}
+                        editChange={this.setPlans}
+                        handler={this.handlePlansUpdate}
                         />
                     </div>
                 </div>

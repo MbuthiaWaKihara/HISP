@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PortfoliosModal from './PortfoliosModal';
+import ErrorModal from './ErrorModal';
 
 class SinglePortfolio extends Component{
 
     render()
     {
-        const { id, deletePortfolio, imgsrc, title, link, activate, editing, show, buttonText, modaltitle, titleplaceholder, titleValue, changeTitleValue, linkplaceholder, linkValue, changeLinkValue, typeValue, changeTypeValue, onHide, handleSubmit } = this.props;
+        const { id, deletePortfolio, imgsrc, title, link, activate, editing, show, buttonText, modaltitle, titleplaceholder, titleValue, changeTitleValue, linkplaceholder, linkValue, changeLinkValue, typeValue, changeTypeValue, onHide, handleSubmit, showerror, onHideError } = this.props;
         return(
             <div className="col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.1s">
                 <div className="portfolio-wrap">
@@ -36,6 +37,10 @@ class SinglePortfolio extends Component{
                 typeValue={typeValue}
                 changeTypeValue={changeTypeValue}
                 handleSubmit={handleSubmit}
+                />
+                <ErrorModal
+                show={showerror}
+                onHide={onHideError}
                 />
             </div>
         )

@@ -1,4 +1,5 @@
 import React from 'react';
+import ErrorModal from './ErrorModal';
 
 const AboutTemplate = (props) =>
 {
@@ -14,7 +15,7 @@ const AboutTemplate = (props) =>
               {isEditing ?
               <>
               <textarea 
-              style={{width : '100%', border : 'none', backgroundColor : 'rgba(255, 255, 255, .9)', fontSize : '.9em', color : '###575757', marginLeft : '15px'}}
+              style={{width : '90%', border : 'none', backgroundColor : 'rgba(255, 255, 255, .9)', fontSize : '.9em', color : '###575757', marginLeft : '15px'}}
               rows="7"
               value={editValue}
               onChange={editChange}>
@@ -23,6 +24,10 @@ const AboutTemplate = (props) =>
               <p onDoubleClick={activator}>{content}</p>
               }
             </div>
+            <ErrorModal 
+                show={props.show}
+                onHide={props.onHide}
+                />
           </div>
     )
 }

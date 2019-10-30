@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AboutTemplate from './AboutTemplate';
+import ErrorModal from './ErrorModal';
 import axios from 'axios';
 
 class About extends Component{
@@ -22,9 +23,16 @@ class About extends Component{
             missionIsEditing: false,
             visionIsEditing: false,
             plansIsEditing: false,
+            error: false
         };
     }
 
+    deactivateError = () =>
+    {
+        this.setState({
+            error : false,
+        })
+    }
     getAllAbouts = () => 
     {
         return axios
@@ -45,7 +53,14 @@ class About extends Component{
                     plansModalShow : false,
                 })
             }
-        );
+        )
+        .catch(
+            () => {
+                this.setState({
+                    error : true,
+                })
+            }
+        )
     }
 
     componentDidMount = () =>
@@ -183,9 +198,10 @@ class About extends Component{
             }
         )
         .catch(
-            error =>
-            {
-                console.log(error);
+            () => {
+                this.setState({
+                    error : true,
+                })
             }
         )
     }
@@ -207,9 +223,10 @@ class About extends Component{
             }
         )
         .catch(
-            error =>
-            {
-                console.log(error);
+            () => {
+                this.setState({
+                    error : true,
+                })
             }
         )
     }
@@ -231,9 +248,10 @@ class About extends Component{
             }
         )
         .catch(
-            error =>
-            {
-                console.log(error);
+            () => {
+                this.setState({
+                    error : true,
+                })
             }
         )
     }
@@ -255,9 +273,10 @@ class About extends Component{
             }
         )
         .catch(
-            error =>
-            {
-                console.log(error);
+            () => {
+                this.setState({
+                    error : true,
+                })
             }
         )
     }
@@ -286,7 +305,14 @@ class About extends Component{
                     missionIsEditing: false,
                 })
             }
-        );
+        )
+        .catch(
+            () => {
+                this.setState({
+                    error : true,
+                })
+            }
+        )
         
     }
 
@@ -350,6 +376,8 @@ class About extends Component{
                         editValue={newData.newMission}
                         editChange={this.setMission}
                         handler={this.handleMissionUpdate}
+                        show={this.state.error}
+                        onHide={this.deactivateError}
                         />
 
                         <AboutTemplate 
@@ -363,6 +391,8 @@ class About extends Component{
                         editValue={newData.newVision}
                         editChange={this.setVision}
                         handler={this.handleVisionUpdate}
+                        show={this.state.error}
+                        onHide={this.deactivateError}
                         />
 
                         <AboutTemplate 
@@ -376,9 +406,15 @@ class About extends Component{
                         editValue={newData.newPlans}
                         editChange={this.setPlans}
                         handler={this.handlePlansUpdate}
+                        show={this.state.error}
+                        onHide={this.deactivateError}
                         />
                     </div>
                 </div>
+                <ErrorModal 
+                show={this.state.error}
+                onHide={this.deactivateError}
+                />
             </section>
         )
     }

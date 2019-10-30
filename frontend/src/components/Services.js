@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SingleService from './SingleService';
 import ServicesModal from './ServicesModal';
+import ErrorModal from './ErrorModal';
 import axios from 'axios';
 
 class Services extends Component{
@@ -15,7 +16,16 @@ class Services extends Component{
             editingItem: 'none',
             newServiceInput : '',
             newServiceText : '',
+            formCommands : 0,
+            error : false,
         }
+    }
+
+    deactivateError = () =>
+    {
+        this.setState({
+            error : false,
+        })
     }
 
     getAllServices = () =>
@@ -31,6 +41,14 @@ class Services extends Component{
             {
                 this.setState({
                     services : [...response.data]
+                })
+            }
+        )
+        .catch(
+            () => 
+            {
+                this.setState({
+                    error : true,
                 })
             }
         )
@@ -52,6 +70,14 @@ class Services extends Component{
                 this.getAllServices();
             }
         )
+        .catch(
+            () => 
+            {
+                this.setState({
+                    error : true,
+                })
+            }
+        )
     }
 
     addService = (title, body) =>
@@ -69,6 +95,14 @@ class Services extends Component{
             () =>
             {
                 this.getAllServices();
+            }
+        )
+        .catch(
+            () => 
+            {
+                this.setState({
+                    error : true,
+                })
             }
         )
     }
@@ -89,6 +123,14 @@ class Services extends Component{
             () =>
             {
                 this.getAllServices();
+            }
+        )
+        .catch(
+            () => 
+            {
+                this.setState({
+                    error : true,
+                })
             }
         )
     }
@@ -143,15 +185,33 @@ class Services extends Component{
     handleNewService = event =>
     {
         event.preventDefault();
-        this.addService(this.state.newServiceInput, this.state.newServiceText)
-        .then(
-            () =>
-            {
-                this.setState({
-                    addServiceShow : false,
+        this.setState(
+            previousState => {
+                return({
+                    formCommands : previousState.formCommands + 1,
                 })
             }
-        );
+        )
+        if(this.state.formCommands === 1){
+            this.addService(this.state.newServiceInput, this.state.newServiceText)
+            .then(
+                () =>
+                {
+                    this.setState({
+                        addServiceShow : false,
+                        formCommands : 0,
+                    });
+                }
+            )
+            .catch(
+                () => 
+                {
+                    this.setState({
+                        error : true,
+                    })
+                }
+            )
+            }
     }
 
     getEditingItem = id =>
@@ -173,7 +233,14 @@ class Services extends Component{
                 })
             }
         )
-
+        .catch(
+            () => 
+            {
+                this.setState({
+                    error : true,
+                })
+            }
+        )
     }
     render()
     {
@@ -194,6 +261,8 @@ class Services extends Component{
                                                          textplaceholder="Change Body"
                                                          inputplaceholder="Change Title"
                                                          buttonText="Change"
+                                                         showerror={this.state.error}
+                                                         onHideError={this.deactivateError}
                                                          />);
         return(
             <section id="services" className="section-bg">
@@ -217,6 +286,10 @@ class Services extends Component{
                 inputplaceholder="Title Of Service Here"
                 textplaceholder="Body of Service Here"
                 buttonText="Add Service"
+                />
+                <ErrorModal
+                show={this.state.error}
+                onHide={this.deactivateError}
                 />
             </section>
         )

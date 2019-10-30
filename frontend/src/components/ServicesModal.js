@@ -29,7 +29,7 @@ class ServicesModal extends Component{
                     data-msg="Please write something for us" placeholder={this.props.textplaceholder} value={this.props.textValue} onChange={this.props.changeTextValue}></textarea>
                 <div className="validation"></div>
                 </div>
-                <div className="text-center"><button type="submit" title="change content" style={{backgroundColor : '#0a7cff' , color : '#ffffff', borderRadius : '5px' , border : 'none'}}>{this.props.buttonText}</button></div>
+                <div className="text-center"><button type="submit" onClick={() => {this.setState({submitted : true})}} title="change content" style={{backgroundColor : '#0a7cff' , color : '#ffffff', borderRadius : '5px' , border : 'none'}}>{this.props.buttonText}</button></div>
             </form>
             </Modal.Body>
             <Modal.Footer>

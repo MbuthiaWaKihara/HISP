@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import ServicesModal from './ServicesModal';
+import ErrorModal from './ErrorModal';
 
 class SingleService extends Component{
     render()
     {
-        const { getEditingItem, service, deleteService, activate, show, onHide, inputValue, changeInputValue, textValue, changeTextValue, handleSubmit, modaltitle, textplaceholder, inputplaceholder, buttonText } = this.props;
+        const { getEditingItem, service, deleteService, activate, show, onHide, inputValue, changeInputValue, textValue, changeTextValue, handleSubmit, modaltitle, textplaceholder, inputplaceholder, buttonText, showerror, onHideError } = this.props;
         return (
             <div className="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
                 <div className="box">
@@ -28,6 +29,10 @@ class SingleService extends Component{
                 />
                     {service.body}</p>
                 </div>
+                <ErrorModal
+                show={showerror}
+                onHide={onHideError}
+                />
             </div>
         )
     }

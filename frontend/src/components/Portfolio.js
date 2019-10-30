@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SinglePortfolio from './SinglePortfolio';
 import PortfoliosModal from './PortfoliosModal';
+import ErrorModal from './ErrorModal';
 import axios from 'axios';
 
 class Portfolio extends Component{
@@ -16,7 +17,16 @@ class Portfolio extends Component{
             newPortfolioTitle : '',
             newPortfolioLink : '',
             newPortfolioType : 'web',
+            formCommands : 0,
+            error : false,
         }
+    }
+
+    deactivateError = () =>
+    {
+        this.setState({
+            error : false,
+        })
     }
 
     getEditingPortfolio = id =>
@@ -84,6 +94,13 @@ class Portfolio extends Component{
                 })
             }
         )
+        .catch(
+            () => {
+                this.setState({
+                    error : true,
+                })
+            }
+        )
     }
 
     componentDidMount = () =>
@@ -107,6 +124,13 @@ class Portfolio extends Component{
                 this.getAllPortfolios();
             }
         )
+        .catch(
+            () => {
+                this.setState({
+                    error : true,
+                })
+            }
+        )
     }
 
     addPortfolio = (title, link, type) =>
@@ -125,6 +149,13 @@ class Portfolio extends Component{
             () =>
             {
                 this.getAllPortfolios();
+            }
+        )
+        .catch(
+            () => {
+                this.setState({
+                    error : true,
+                })
             }
         )
     }
@@ -148,19 +179,38 @@ class Portfolio extends Component{
                 this.getAllPortfolios();
             }
         )
+        .catch(
+            () => {
+                this.setState({
+                    error : true,
+                })
+            }
+        )
     }
     
     handleAddPortfolio = event =>
     {
         event.preventDefault();
-        this.addPortfolio(this.state.newPortfolioTitle, this.state.newPortfolioLink, this.state.newPortfolioType)
-        .then(
-            () =>{
-                this.setState({
-                    addPortfolioShow : false,
+        this.setState(
+            previousState => {
+                return({
+                    formCommands : previousState.formCommands + 1,
                 })
             }
-        )
+        );
+        if(this.state.formCommands === 1){
+            this.addPortfolio(this.state.newPortfolioTitle, this.state.newPortfolioLink, this.state.newPortfolioType)
+            .then(
+                () =>{
+                    this.setState({
+                        addPortfolioShow : false,
+                    })
+                    this.setState({
+                        formCommands : 0,
+                    })
+                }
+            )
+        }
     }
 
     handleUpdatePortfolio = event =>
@@ -171,6 +221,13 @@ class Portfolio extends Component{
             () => {
                 this.setState({
                     editPortfolioShow : false,
+                })
+            }
+        )
+        .catch(
+            () => {
+                this.setState({
+                    error : true,
                 })
             }
         )
@@ -203,6 +260,9 @@ class Portfolio extends Component{
                                                                 changeTypeValue={this.changeTypeValue}
                                                                 onHide={this.hideEditPortfolio}
                                                                 handleSubmit={this.handleUpdatePortfolio}
+
+                                                                showerror={this.state.error}
+                                                                onHideError={this.deactivateError}
                                                                 />);
         return(
             <section id="portfolio" className="section-bg">
@@ -240,6 +300,10 @@ class Portfolio extends Component{
                 typeValue={newPortfolioType}
                 changeTypeValue={this.changeTypeValue}
                 handleSubmit={this.handleAddPortfolio}
+                />
+                <ErrorModal
+                show={this.state.error}
+                onHide={this.deactivateError}
                 />
             </section>
         )

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { SendMail } from './Mailing';
+import ErrorModal from './ErrorModal';
 
 class Contact extends Component{
     constructor(props)
@@ -14,7 +15,15 @@ class Contact extends Component{
                 sent : false,
                 message : '',
             },
+            error : false,
         }
+    }
+
+    deactivateError = () =>
+    {
+        this.setState({
+            error : false,
+        })
     }
 
     changeState = (event) =>
@@ -43,16 +52,17 @@ class Contact extends Component{
             });
 
             SendMail(formDetails)
-        .then(
-            response => {
-                this.setState(
-                    {
-                        mailing : {
-                          sent : true,
-                          message : response.data.message,
-                        },
-                    }
-                );
+            .then(
+                response => {
+                    this.setState(
+                        {
+                            mailing : {
+                            sent : true,
+                            message : response.data.message,
+                            },
+                        }
+                    );
+                
 
                 setTimeout(
                     () => {
@@ -69,12 +79,20 @@ class Contact extends Component{
                     }
                     ,5000)
             }
-        );
+        )
+        .catch(
+            () =>
+            {
+                this.setState({
+                    error : true,
+                })
+            }
+        )
         }
     }
     render()
     {
-        const { name, email, subject, message, mailing } = this.state;
+        const { name, email, subject, message, mailing, error } = this.state;
         return(
             <section id="contact">
                 <div className="container-fluid">
@@ -140,6 +158,10 @@ class Contact extends Component{
                     </div>
                  </div>
                 </div>
+                <ErrorModal
+                show={error}
+                onHide={this.deactivateError}
+                />
             </section>
         )
     }

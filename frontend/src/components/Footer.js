@@ -48,8 +48,14 @@ const Footer = () =>
                     </div>
                 </div>
             </div>
+
+            <div className="container">
+                <div className="copyright">
+                    &copy; Copyright <strong>HISPKENYA</strong>. All Rights Reserved
+                </div>
+            </div>
         </footer>
     )
 }
 
-export default Footer;
+export default React.memo(Footer);

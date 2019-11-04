@@ -16,7 +16,7 @@ class AboutController extends Controller
     public function updateMainContent(Request $request)
     {
         $abouts = About::find(1);
-        $abouts->main_content = $request->mainContent;
+        $abouts->main_content = $request->main;
         $abouts->save();
         return 200;
     }

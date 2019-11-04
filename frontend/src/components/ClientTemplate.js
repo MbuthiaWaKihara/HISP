@@ -12,4 +12,4 @@ const ClientTemplate = (props) =>
     )
 }
 
-export default ClientTemplate;
+export default React.memo(ClientTemplate);

@@ -1,9 +1,8 @@
 import React from 'react';
-import ErrorModal from './ErrorModal';
 
 const AboutTemplate = (props) =>
 {
-    const { delay, title, imgsrc, icon, content, isEditing, editValue, editChange, handler, activator} = props
+    const { name, delay, title, imgsrc, icon, content, isEditing, changeIsEditing, value, onChange, update } = props
     return(
         <div className="col-md-4 wow fadeInUp" data-wow-delay={delay}>
             <div className="about-col">
@@ -17,19 +16,15 @@ const AboutTemplate = (props) =>
               <textarea 
               style={{width : '90%', border : 'none', backgroundColor : 'rgba(255, 255, 255, .9)', fontSize : '.9em', color : '###575757', marginLeft : '15px'}}
               rows="7"
-              value={editValue}
-              onChange={editChange}>
-              </textarea><br/><button className="btn btn-primary" onClick={handler}>Done</button></>
+              value={value}
+              onChange={event => onChange(event,name)}>
+              </textarea><br/><button className="btn btn-primary" onClick={() => {update(name, value)}}>Done</button></>
               :
-              <p onDoubleClick={activator}>{content}</p>
+              <p onDoubleClick={() => changeIsEditing(name)}>{content}</p>
               }
             </div>
-            <ErrorModal 
-                show={props.show}
-                onHide={props.onHide}
-                />
           </div>
     )
 }
 
-export default AboutTemplate;
+export default React.memo(AboutTemplate);

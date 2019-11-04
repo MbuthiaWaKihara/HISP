@@ -28,4 +28,4 @@ const Clients = () =>
     )
 }
 
-export default Clients;
+export default React.memo(Clients);

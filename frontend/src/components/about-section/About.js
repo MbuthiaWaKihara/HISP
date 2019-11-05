@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import AboutTemplate from './AboutTemplate';
+import ErrorModal from '../ErrorModal';
 import axios from 'axios';
 
 const About = () =>
 {
+    //state variable that catches an error:
+    const [error, setError] = useState({caught: false, message: ''});//no error by default
+
     //state variable that holds the abouts data from the server:
     const [abouts, setAbouts] = useState({ main: '', mission: '', vision: '', plans: '',});
 
@@ -28,7 +32,8 @@ const About = () =>
             )
             .catch(
                 error => {
-                    console.log(error);
+                    console.log(error.message);
+                    setError({caught: true, message: error.message});
                 }
             )
         }, [toggleEdited]
@@ -66,6 +71,7 @@ const About = () =>
         .catch(
             error => {
                 console.log(error);
+                setError({caught: true, message: error});
             }
         )
     }
@@ -132,6 +138,12 @@ const About = () =>
                         />
                     </div>
                 </div>
+                <ErrorModal
+                show={error.caught}
+                onHide={() => setError({...error, caught: false,})}
+                name="About Us"
+                message={error.message}
+                />
             </section>
     )
 }

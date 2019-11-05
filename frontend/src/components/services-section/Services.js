@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import SingleService from './SingleService';
 import ServiceModal from './ServiceModal';
+import ErrorModal from '../ErrorModal';
 import axios from 'axios';
 
 const Services = () =>
 {
+    //state variable that catches an error:
+    const [error, setError] = useState({caught: false, message: ''});//no error by default
+
     //state variable that holds all the service items from the server:
     const [services, setServices] = useState([]);
 
@@ -37,6 +41,7 @@ const Services = () =>
             error => 
             {
                 console.log(error);
+                setError({caught: true, message: error.message});
             }
         )
         }, [toggleEdited]
@@ -63,7 +68,8 @@ const Services = () =>
         .catch(
             error => 
             {
-              console.log(error)
+              console.log(error);
+              setError({caught: true, message: error.message});
             }
         )
     }
@@ -99,6 +105,7 @@ const Services = () =>
            error =>
            {
                console.log(error);
+               setError({caught: true, message: error.message});
            }
         )
     }
@@ -132,6 +139,7 @@ const Services = () =>
             error => 
             {
                 console.log(error);
+                setError({caught: true, message: error.message});
             }
         )
     }
@@ -191,6 +199,12 @@ const Services = () =>
                 show={modal.add}
                 onHide={() => { setModal({...modal, add: false,})}}
                 modalinfo={add_modalInfo}
+                />
+                <ErrorModal
+                show={error.caught}
+                onHide={() => setError({...error, caught: false,})}
+                name="Our Services"
+                message={error.message}
                 />
             </section>
     )

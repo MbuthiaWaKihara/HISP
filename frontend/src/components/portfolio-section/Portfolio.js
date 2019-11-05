@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import SinglePortfolio from './SinglePortfolio';
 import PortfolioModal from './PortfolioModal';
+import ErrorModal from '../ErrorModal';
 import axios from 'axios';
 
 const Portfolio = () =>
 {
+//state variable that catches an error:
+const [error, setError] = useState({caught: false, message: ''});//no error by default
+
 //state variable that holds all the portfolio items from the server:
 const [portfolios, setPortfolios] = useState([]);
 
@@ -37,6 +41,7 @@ useEffect(
         error => 
         {
             console.log(error);
+            setError({caught: true, message: error.message});
         }
     )
     }
@@ -61,6 +66,7 @@ useEffect(
         .catch(
             error => {
                 console.log(error);
+                setError({caught: true, message: error.message});
             }
         )
     }
@@ -135,6 +141,7 @@ useEffect(
             error =>
             {
                 console.log(error);
+                setError({caught: true, message: error.message});
             }
         )
 
@@ -157,7 +164,7 @@ useEffect(
     let edit_modalInfo = {
         show: modal.edit,
         onHide: () => setModal({...modal, edit: false,}),
-        title: 'Edit Service',
+        title: 'Edit Portfolio',
         buttonText: 'Change',
         titleValue: portfolio.title,
         changeTitleValue: event => { setPortfolio({...portfolio, title: event.target.value,}) },
@@ -210,6 +217,12 @@ useEffect(
                 show={modal.add}
                 onHide={() => { setModal({...modal, add: false,}) }}
                 modalinfo={add_modalInfo}
+                />
+                <ErrorModal
+                show={error.caught}
+                onHide={() => setError({...error, caught: false,})}
+                name="Our Portfolio"
+                message={error.message}
                 />
             </section>
     )

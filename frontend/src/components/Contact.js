@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import ErrorModal from './ErrorModal';
 import axios from 'axios';
 
 const Contact = () =>
 {
+    //state variable that catches an error:
+    const [error, setError] = useState({caught: false, message: ''});//no error by default
+
     //state variables for holding form data:
     const [formData, setFormData] = useState({name: '', email: '', subject: '', message: '',});
 
@@ -49,6 +53,7 @@ const Contact = () =>
                 error =>
                 {
                     console.log(error);
+                    setError({caught: true, message: error.message});
                 }
             );
         }
@@ -118,6 +123,12 @@ const Contact = () =>
                 </div>
              </div>
             </div>
+            <ErrorModal
+            show={error.caught}
+            onHide={() => setError({...error, caught: false,})}
+            name="Your Mail"
+            message={error.message}
+            />
         </section>
     )
 }

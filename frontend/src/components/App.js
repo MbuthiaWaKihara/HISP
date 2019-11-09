@@ -1,5 +1,5 @@
-import React from 'react';
-import Header from './Header';
+import React, { useState } from 'react';
+import Header from './header/Header';
 import Intro from './Intro';
 import About from './about-section/About';
 import Services from './services-section/Services';
@@ -8,11 +8,18 @@ import Clients from './Clients';
 import Contact from './Contact';
 import Footer from './Footer';
 
+
+export const TokenContext = React.createContext();
 const App = () =>
 {
+    let initialToken = sessionStorage.getItem("hispKEAdminToken");
+    const [token, setToken] = useState(initialToken);
     return(
-        <>
-            <Header />
+        <TokenContext.Provider value={token}>
+            <Header 
+                updateToken={token => {setToken(token); sessionStorage.setItem("hispKEAdminToken", token)}}
+                removeToken={() => { setToken(null) }}
+            />
             <Intro />
             <main id="main">
                 <About />
@@ -22,7 +29,7 @@ const App = () =>
                 <Contact />
             </main>
             <Footer />
-        </>
+        </TokenContext.Provider>
     )
 }
 

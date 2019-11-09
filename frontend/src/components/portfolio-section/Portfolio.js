@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import SinglePortfolio from './SinglePortfolio';
 import PortfolioModal from './PortfolioModal';
 import ErrorModal from '../ErrorModal';
 import axios from 'axios';
+import { TokenContext } from '../App';
 
 const Portfolio = () =>
 {
+//get admin token if available:
+const adminToken = useContext(TokenContext);
+
 //state variable that catches an error:
 const [error, setError] = useState({caught: false, message: ''});//no error by default
 
@@ -212,7 +216,7 @@ useEffect(
                         {formattedPortfolios}
                     </div>
                 </div>
-                <div style={{paddingLeft : '50%', paddingRight : '50%', marginTop : '30px'}}><button className="btn btn-primary" onClick={() => { setModal({...modal, add: true,} )}}>Add</button></div>
+                {adminToken && <div style={{paddingLeft : '50%', paddingRight : '50%', marginTop : '30px'}}><button className="btn btn-primary" onClick={() => { setModal({...modal, add: true,} )}}>Add</button></div>}
                 <PortfolioModal
                 show={modal.add}
                 onHide={() => { setModal({...modal, add: false,}) }}

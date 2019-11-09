@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import AboutTemplate from './AboutTemplate';
 import ErrorModal from '../ErrorModal';
 import axios from 'axios';
+import { TokenContext } from '../App';
 
 const About = () =>
 {
+    //get admin token if available:
+    const adminToken = useContext(TokenContext);
     //state variable that catches an error:
     const [error, setError] = useState({caught: false, message: ''});//no error by default
 
@@ -90,7 +93,7 @@ const About = () =>
                             value={abouts.main}
                             onChange={event => setAbouts({ ...abouts, main: event.target.value})}>
                             </textarea><br/><button className="btn btn-primary" onClick={() =>{updateCurrentEdited('main',abouts.main)}}>Done</button><br/><br/></>
-                            :<p className="edit-about" onDoubleClick={() => {setIsEditing({...isEditing, main: true})}}>
+                            :<p className="edit-about" onDoubleClick={() => {if(adminToken) setIsEditing({...isEditing, main: true})}}>
                             {abouts.main}
                             </p>
                         }

@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import SingleService from './SingleService';
 import ServiceModal from './ServiceModal';
 import ErrorModal from '../ErrorModal';
 import axios from 'axios';
+import { TokenContext } from '../App';
 
 const Services = () =>
 {
+    //get Admin token if available:
+    const adminToken = useContext(TokenContext);
+
     //state variable that catches an error:
     const [error, setError] = useState({caught: false, message: ''});//no error by default
 
@@ -194,7 +198,7 @@ const Services = () =>
                 <div className="row">
                     {formatedServices}
                 </div>
-                <div className="add-service"><button className="btn btn-primary" onClick={() => { setModal({...modal, add: true,}) }}>Add</button></div>
+                {adminToken && <div className="add-service"><button className="btn btn-primary" onClick={() => { setModal({...modal, add: true,}) }}>Add</button></div>}
                 <ServiceModal 
                 show={modal.add}
                 onHide={() => { setModal({...modal, add: false,})}}

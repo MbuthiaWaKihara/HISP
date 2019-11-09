@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TokenContext } from '../App';
 
 const AboutTemplate = (props) =>
 {
+    //get admin token if available:
+    const adminToken = useContext(TokenContext);
+
     const { name, delay, title, imgsrc, icon, content, isEditing, changeIsEditing, value, onChange, update } = props
     return(
         <div className="col-md-4 wow fadeInUp" data-wow-delay={delay}>
@@ -20,7 +24,7 @@ const AboutTemplate = (props) =>
               onChange={event => onChange(event,name)}>
               </textarea><br/><button className="btn btn-primary" onClick={() => {update(name, value)}}>Done</button></>
               :
-              <p onDoubleClick={() => changeIsEditing(name)}>{content}</p>
+              <p onDoubleClick={() => { if(adminToken) changeIsEditing(name);}}>{content}</p>
               }
             </div>
           </div>

@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PortfolioModal from './PortfolioModal';
+import { TokenContext } from '../App';
 
 const SinglePortfolio = props =>
 {
+    //get admin token if available:
+    const adminToken = useContext(TokenContext);
+
     const { title, link, imgsrc, portfolio, deletePortfolio, modalinfo, activate } = props;
     return(
         <div className="col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.1s">
@@ -14,7 +18,7 @@ const SinglePortfolio = props =>
                         <a href="index.html" className="link-details" title="More Details"><i className="ion ion-android-open"></i></a>
                     </figure>
 
-                    <div style={{backgroundColor : '#ffffff', paddingLeft : '40%'}}><i className="fa fa-edit" onClick={() => { activate(); modalinfo.currentPortfolio(portfolio.id)}}></i><i className="fa fa-trash" style={{marginLeft : '30px'}} onClick={() => { deletePortfolio(portfolio.id) }}></i></div>
+                    {adminToken && <div style={{backgroundColor : '#ffffff', paddingLeft : '40%'}}><i className="fa fa-edit" onClick={() => { activate(); modalinfo.currentPortfolio(portfolio.id)}}></i><i className="fa fa-trash" style={{marginLeft : '30px'}} onClick={() => { deletePortfolio(portfolio.id) }}></i></div>}
                     <div className="portfolio-info">
                         <h4><a href="index.html">{link}</a></h4>
                         <p>{title}</p>

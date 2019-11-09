@@ -12,7 +12,7 @@ const ErrorModal = (props) =>
         >
         <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-            <div><p style={{color : '#190dff', fontWeight : 'bolder'}}>Ooops! Something isn't right...</p></div>
+            <div><p style={{color : '#190dff', fontWeight : 'bolder'}}>Whoops! Something isn't right...</p></div>
             </Modal.Title>
         </Modal.Header>
         <Modal.Body>

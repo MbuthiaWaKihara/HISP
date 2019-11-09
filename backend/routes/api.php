@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::middleware('auth:api')->get('/user', function(Request $request){
+    return $request->user();
+});
+
 //mailing
 Route::post('email','SendMailController@send');
 
@@ -34,3 +38,6 @@ Route::get('portfolio', 'PortfoliosController@index');
 Route::post('portfolio/delete','PortfoliosController@delete');
 Route::post('portfolio/new','PortfoliosController@new');
 Route::post('portfolio/edit','PortfoliosController@update');
+
+//authentication
+Route::post('login', 'UsersController@login');

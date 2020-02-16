@@ -2,7 +2,7 @@
 
 See https://github.com/PeterMutembei/HISP_Kenya for the original design. 
 <p>This project was an interesting attempt to create a regular fancy website, but with a unique edit on the fly feature</p>
-<p>Authorized users, or admins, can pass credentials and gain access to the edit feature. A selected section of the pages website can be customized,
+<p>Authorized users, or admins, can pass credentials and gain access to the edit feature. Selected sections of the website's page can be customized,
 and more interestingly, can be done right on the web page!</p>
 
 ![testing](https://github.com/MbuthiaWaKihara/HISP/blob/master/screenshots/intro.png)

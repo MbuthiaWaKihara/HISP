@@ -16,6 +16,9 @@ const App = () =>
     const [token, setToken] = useState(initialToken);
     return(
         <TokenContext.Provider value={token}>
+            {/* <button type="button" id="mobile-nav-toggle">
+                <i className="fa fa-bars"></i>
+            </button> */}
             <Header 
                 updateToken={token => {setToken(token); sessionStorage.setItem("hispKEAdminToken", token)}}
                 removeToken={() => { setToken(null) }}

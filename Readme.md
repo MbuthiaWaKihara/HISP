@@ -17,7 +17,7 @@ See https://github.com/PeterMutembei/HISP_Kenya for the original design.
 <p>The project features a regular website, but with an interesting edit on the fly feature. This means that parts of the website can be modified or customized, or changed right on the web page</p>
 <p>This feature is however limited to authorized users, or admins.</p>
 
-# Known bugs
+# Known Bugs
 <ol>
     <li>Due to relience on jquery in the original design, the react version loses some animations. Thesef animations can however be re-implemented using react and it's libraries eg react spring</li>
 </ol>
